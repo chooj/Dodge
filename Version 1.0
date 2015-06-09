@@ -1,0 +1,332 @@
+float x[] = new float[10];
+float lineIncreaseX = 1;
+float y[] = new float [5];
+float lineIncreaseY = 2*(1/0.85);
+float speed = 9;
+float thighLeft = 470;
+float thighRight = 510;
+float thighMove = 2;
+float thighMultiply = 1;
+float thighMultiply2 = -1;
+float personX = 250;
+float[] three = new float[3];
+float obstacleX;
+float obstacleX2;
+float size = 30;
+float obstacleY = 0;
+float q = 0;
+float obstacleMove = 3;
+int score = 0;
+int endingY = -1;
+int move = 100;
+int lives = 5;
+color yagga = color(0, 0, 0);
+boolean dead = false;
+boolean two = false;
+boolean setScore = false;
+
+void obstacleOne() {
+  noStroke();
+  fill(yagga);
+  obstacleY = obstacleY + speed;
+  if (obstacleY > 300) {
+    fill(#D35757);
+  }
+  if (obstacleY > 650) {
+    obstacleY = 200;
+    size = 30;
+    score = score + 1;
+    obstacleX = three[(int)random(3)];
+    if (score > 9) {
+      q = round(random(0, 1));
+    }
+  }
+  if (obstacleY > 300) {
+    size = size + 0.5;
+  }
+  if (obstacleY >= 515 && obstacleY <= 525) {
+    obstacleY = 520;
+  }
+  ellipse(obstacleX, obstacleY, size, size);
+  if (obstacleX < 250) {
+    if (obstacleY > 300) {
+      obstacleX = obstacleX - obstacleMove;
+    }
+  }
+  if (obstacleX > 250) {
+    if (obstacleY > 300) {
+      obstacleX = obstacleX + obstacleMove;
+    }
+  }
+  noStroke();
+  fill(255, 255, 255);
+  rect(0, 0, 500, 300);
+  triangle(0, 300, 100, 300, 0, 600);
+  triangle(500, 300, 500, 300, 500, 600);
+}
+
+void obstacleTwo() {
+  noStroke();
+  fill(yagga);
+  two = true;
+  obstacleX = 250;
+  obstacleY = obstacleY + speed;
+  if (obstacleY > 300) {
+    fill(#D35757);
+  }
+  if (obstacleY > 650) {
+    obstacleY = 200;
+    size = 30;
+    score = score + 1;
+    obstacleX = 250;
+    obstacleX2 = three[(int)random(2)];
+    score = score + 1;
+    if (score > 9) {
+      q = round(random(0, 1));
+    }
+  }
+  if (obstacleY > 300) {
+    size = size + 0.5;
+  }
+  if (obstacleY >= 515 && obstacleY <= 525) {
+    obstacleY = 520;
+  }
+  ellipse(obstacleX, obstacleY, size, size);
+  if (obstacleY > 300) {
+    if (obstacleX2 < 250) {
+      obstacleX2 = obstacleX2 - obstacleMove;
+    }
+    if (obstacleX2 > 250) {
+      obstacleX2 = obstacleX2 + obstacleMove;
+    }
+  }
+  ellipse(obstacleX2, obstacleY, size, size);
+  noStroke();
+  fill(255, 255, 255);
+  rect(0, 0, 500, 300);
+  triangle(0, 300, 100, 300, 0, 600);
+  triangle(500, 300, 500, 300, 500, 600);
+}
+
+void setup() {
+  size(500, 600);
+  // three
+  three[0] = 210;
+  three[1] = 290;
+  three[2] = 250;
+  // x variables
+  x[0] = 200;
+  x[1] = 300;
+  x[2] = 168.75;
+  x[3] = 331.25;
+  x[4] = 137.5;
+  x[5] = 362.5;
+  x[6] = 106.25;
+  x[7] = 393.75;
+  x[8] = 75;
+  x[9] = 425;
+  // y variables
+  y[0] = 300;
+  y[1] = 375;
+  y[2] = 450;
+  y[3] = 525;
+  y[4] = 600;
+  obstacleX = three[(int)random(3)];
+  obstacleX2 = three[(int)random(2)];
+}
+
+void draw() {
+  background(255, 255, 255);
+  stroke(yagga);
+  smooth();
+
+  // road
+  strokeWeight(1);
+  stroke(255, 0, 0);
+  line(110, 520, 390, 520);
+  stroke(yagga);
+  // borders
+  line(200, 300, 75, 600);
+  line(300, 300, 425, 600);
+  // moving stuff
+  line(x[0], y[0], x[1], y[0]);
+  x[0] = x[0] - lineIncreaseX;
+  x[1] = x[1] + lineIncreaseX;
+  y[0] = y[0] + lineIncreaseY;
+  if (y[0] > 600) {
+    y[0] = 300;
+    x[0] = 200;
+    x[1] = 300;
+  }
+  line(x[2], y[1], x[3], y[1]);
+  x[2] = x[2] - lineIncreaseX;
+  x[3] = x[3] + lineIncreaseX;
+  y[1] = y[1] + lineIncreaseY;
+  if (y[1] > 600) {
+    y[1] = 300;
+    x[2] = 200;
+    x[3] = 300;
+  }
+  line(x[4], y[2], x[5], y[2]);
+  x[4] = x[4] - lineIncreaseX;
+  x[5] = x[5] + lineIncreaseX;
+  y[2] = y[2] + lineIncreaseY;
+  if (y[2] > 600) {
+    y[2] = 300;
+    x[4] = 200;
+    x[5] = 300;
+  }
+  line(x[6], y[3], x[7], y[3]);
+  x[6] = x[6] - lineIncreaseX;
+  x[7] = x[7] + lineIncreaseX;
+  y[3] = y[3] + lineIncreaseY;
+  if (y[3] > 600) {
+    y[3] = 300;
+    x[6] = 200;
+    x[7] = 300;
+  }
+  line(x[8], y[4], x[9], y[4]);
+  x[8] = x[8] - lineIncreaseX;
+  x[9] = x[9] + lineIncreaseX;
+  y[4] = y[4] + lineIncreaseY;
+  if (y[4] > 600) {
+    y[4] = 300;
+    x[8] = 200;
+    x[9] = 300;
+  }
+
+  // obstacles
+  if (q == 0) {
+    obstacleOne();
+  }
+  if (q == 1) {
+    obstacleTwo();
+  }
+
+  // person
+  fill(255, 255, 255);
+  stroke(yagga);
+  strokeWeight(3);
+  ellipse(personX, 390, 40, 40);
+  line(personX, 425, personX - 30, 440);
+  line(personX, 425, personX + 30, 440);
+  line(personX, 410, personX, 475);
+  // legs
+  line(personX - 10, thighLeft, personX - 10, thighLeft + 40);
+  line(personX - 2, 475, personX - 10, thighLeft);
+  thighLeft = thighLeft + (thighMove*thighMultiply);
+  if (thighLeft > 510) {
+    thighMultiply = -1;
+  }
+  if (thighLeft < 470) {
+    thighMultiply = 1;
+  }
+  line(personX + 10, thighRight, personX + 10, thighRight + 40);
+  line(personX + 2, 475, personX + 10, thighRight);
+  thighRight = thighRight + (thighMove*thighMultiply2);
+  if (thighRight > 510) {
+    thighMultiply2 = -1;
+  }
+  if (thighRight < 470) {
+    thighMultiply2 = 1;
+  }
+
+  // lives
+  fill(0, 0, 0);
+  if (lives > 0) {
+    ellipse(50, 50, 35, 35);
+  }
+  if (lives > 1) {
+    ellipse(100, 50, 35, 35);
+  }
+  if (lives > 2) {
+    ellipse(150, 50, 35, 35);
+  }
+  if (lives > 3) {
+    ellipse(200, 50, 35, 35);
+  }
+  if (lives > 4) {
+    ellipse(250, 50, 35, 35);
+  }
+
+  // score
+  fill(0, 0, 0);
+  textSize(70);
+  text(score, 350, 90);
+
+  // yagga!
+  if (score > random(15, 20)) {
+    yagga = color(random(255), random(255), random(255));
+  }
+
+  // death
+  if (lives < 1) {
+    move = 0;
+    speed = 0;
+    size = size - 0.5;
+    thighLeft = 500;
+    thighRight = 480;
+    lineIncreaseX = 0;
+    lineIncreaseY = 0;
+    obstacleMove = 0;
+    endingY = endingY + 3;
+    if (endingY > 330) {
+      endingY = endingY - 3;
+    }
+    filter(BLUR);
+    textSize(70);
+    text("GAME", 140, endingY - 80);
+    text("OVER", 145, endingY);
+    textSize(30);
+    text("Press space to continue", 70, endingY + 45);
+    dead = true;
+  }
+  if (personX > obstacleX - 30 && personX < obstacleX + 30 && obstacleY >= 517 && obstacleY <= 523 && setScore == false) {
+    lives = lives - 1;
+    setScore = true;
+  } else if (two == true && personX > obstacleX2 - 30 && personX < obstacleX2 + 30 && obstacleY >= 517 && obstacleY <= 523 && setScore == false) {
+    lives = lives - 1;
+    setScore = true;
+  } else {
+    setScore = false;
+  }
+}
+
+void keyPressed() {
+  // lane switching
+  if (personX > 150) {
+    if (keyCode == LEFT) {
+      personX = personX - move;
+    }
+  }
+  if (personX < 350) {
+    if (keyCode == RIGHT) {
+      personX = personX + move;
+    }
+  }
+
+  // restart
+  if (key == ' ' && dead == true) {
+    lineIncreaseX = 1;
+    lineIncreaseY = 2*(1/0.85);
+    thighLeft = 470;
+    thighRight = 510;
+    thighMove = 2;
+    thighMultiply = 1;
+    thighMultiply2 = -1;
+    personX = 250;
+    size = 30;
+    speed = 9;
+    obstacleMove = 3;
+    obstacleY = 0;
+    obstacleX = three[(int)random(3)];
+    obstacleX2 = three[(int)random(2)];
+    lives = 5;
+    score = 0;
+    endingY = -1;
+    move = 100;
+    yagga = color(0, 0, 0);
+    dead = false;
+    q = 0;
+  }
+}
